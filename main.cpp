@@ -3,12 +3,21 @@
 /* This is where all the input to the window goes to */
 LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam) {
 	switch(Message) {
-		
+		case WM_COMMAND:
+             if(HIWORD(wParam) == CBN_SELCHANGE) {
+                                        int ItemIndex = SendMessage((HWND) lParam, (UINT) CB_GETCURSEL, 
+                (WPARAM) 0, (LPARAM) 0);
+            TCHAR  ListItem[256];
+            (TCHAR) SendMessage((HWND) lParam, (UINT) CB_GETLBTEXT, (WPARAM) ItemIndex, (LPARAM) ListItem);
+                               }
+             break;
 		/* Upon destruction, tell the main thread to stop */
 		case WM_DESTROY: {
 			PostQuitMessage(0);
 			break;
 		}
+		
+		
 		
 		/* All other messages (a lot of them) are processed using default procedures */
 		default:
@@ -67,7 +76,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		HWND hCombo = CreateWindowEx
 		(WS_EX_CLIENTEDGE, "COMBOBOX"
 		, "NULL", WS_CHILD | WS_VISIBLE | WS_BORDER | CBS_DROPDOWN,
-			25, 45, 150, 150, hwnd, NULL, hInstance, NULL);
+			25, 45, 150, 150, hwnd, (HMENU)123, hInstance, NULL);
 			
 				/*zawartosc */
 		SendMessage (hCombo, CB_ADDSTRING, 0,
@@ -81,7 +90,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		HWND hText = CreateWindowEx
 		(WS_EX_CLIENTEDGE, "EDIT"
 		, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER ,
-			200, 45, 100, 30, hwnd, NULL, hInstance, NULL);
+			200, 45, 100, 30, hwnd, (HMENU)456, hInstance, NULL);
 		
         /* Lista rozwijana*/
 		HWND hCombo2 = CreateWindowEx
@@ -97,6 +106,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		SendMessage (hCombo2, CB_ADDSTRING, 0,
 		(LPARAM) "ELEMENT 3");
         
+        
         /* pole tekstowe */
 		HWND hText2 = CreateWindowEx
 		(WS_EX_CLIENTEDGE, "EDIT"
@@ -108,6 +118,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		(WS_EX_CLIENTEDGE, "BUTTON"
 		, "przycisk", WS_CHILD | WS_VISIBLE,
 		500, 250, 100, 30, hwnd, NULL, hInstance, NULL);
+		
+		
 
 	if(hwnd == NULL) {
 		MessageBox(NULL, "Window Creation Failed!","Error!",MB_ICONEXCLAMATION|MB_OK);
@@ -123,6 +135,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		TranslateMessage(&msg); /* Translate key codes to chars if present */
 		DispatchMessage(&msg); /* Send it to WndProc */
 	}
-	MessageBox(NULL, "ehe", "ehe", MB_OKCANCEL);
 	return msg.wParam;
 }
+
