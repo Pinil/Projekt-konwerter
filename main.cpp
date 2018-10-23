@@ -56,10 +56,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return 0;
 	}
 
-	hwnd = CreateWindowEx(WS_EX_CLIENTEDGE,"WindowClass","Tost z mas³êm i serem",WS_VISIBLE|WS_OVERLAPPEDWINDOW,
+	hwnd = CreateWindowEx(WS_EX_CLIENTEDGE,"WindowClass","Tost z mas3em i serem",WS_VISIBLE|WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, /* x */
 		CW_USEDEFAULT, /* y */
-		350, /* width */
+		650, /* width */
 		350, /* height */
 		NULL,NULL,hInstance,NULL);
 	
@@ -67,7 +67,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		HWND hCombo = CreateWindowEx
 		(WS_EX_CLIENTEDGE, "COMBOBOX"
 		, "NULL", WS_CHILD | WS_VISIBLE | WS_BORDER | CBS_DROPDOWN,
-			5, 5, 150, 150, hwnd, NULL, hInstance, NULL);
+			25, 45, 150, 150, hwnd, NULL, hInstance, NULL);
 			
 				/*zawartosc */
 		SendMessage (hCombo, CB_ADDSTRING, 0,
@@ -81,13 +81,33 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		HWND hText = CreateWindowEx
 		(WS_EX_CLIENTEDGE, "EDIT"
 		, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER ,
-			160, 5, 30, 30, hwnd, NULL, hInstance, NULL);
+			200, 45, 100, 30, hwnd, NULL, hInstance, NULL);
+		
+        /* Lista rozwijana*/
+		HWND hCombo2 = CreateWindowEx
+		(WS_EX_CLIENTEDGE, "COMBOBOX"
+		, "NULL", WS_CHILD | WS_VISIBLE | WS_BORDER | CBS_DROPDOWN,
+			325, 45, 150, 150, hwnd, NULL, hInstance, NULL);
 			
+				/*zawartosc */
+		SendMessage (hCombo2, CB_ADDSTRING, 0,
+		(LPARAM) "ELEMENT 1");
+		SendMessage (hCombo2, CB_ADDSTRING, 0,
+		(LPARAM) "ELEMENT 2");
+		SendMessage (hCombo2, CB_ADDSTRING, 0,
+		(LPARAM) "ELEMENT 3");
+        
+        /* pole tekstowe */
+		HWND hText2 = CreateWindowEx
+		(WS_EX_CLIENTEDGE, "EDIT"
+		, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER ,
+			485, 45, 100, 30, hwnd, NULL, hInstance, NULL);
+            	
 		/*przycisk*/
 		 hPrzycisk = CreateWindowEx
 		(WS_EX_CLIENTEDGE, "BUTTON"
 		, "przycisk", WS_CHILD | WS_VISIBLE,
-		200, 250, 100, 30, hwnd, NULL, hInstance, NULL);
+		500, 250, 100, 30, hwnd, NULL, hInstance, NULL);
 
 	if(hwnd == NULL) {
 		MessageBox(NULL, "Window Creation Failed!","Error!",MB_ICONEXCLAMATION|MB_OK);
